@@ -4,6 +4,7 @@ const container = new ContainerBuilder();
 const loader = new YamlFileLoader(container);
 const env = process.env.NODE_ENV ?? 'dev';
 
-void loader.load(`${__dirname}/application_${env}.yaml`);
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+loader.load(`${__dirname}/application_${env}.yaml`);
 
 export default container;
