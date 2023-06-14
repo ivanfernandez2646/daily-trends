@@ -1,20 +1,22 @@
+import { IncomingMessage, Server as NodeServer, ServerResponse } from 'node:http';
+
 import { Server } from './server';
 
 export class CmsBackendApp {
-  server?: Server;
+	server?: Server;
 
-  async start() {
-    const port = process.env.PORT || '5000';
-    this.server = new Server(port);
-    return this.server.listen();
-  }
+	async start(): Promise<void> {
+		const port = process.env.PORT ?? '5000';
+		this.server = new Server(port);
 
-  get httpServer() {
-    return this.server?.getHTTPServer();
-  }
+		return this.server.listen();
+	}
 
-  async stop() {
-    return this.server?.stop();
-  }
+	get httpServer(): NodeServer<typeof IncomingMessage, typeof ServerResponse> | undefined {
+		return this.server?.getHTTPServer();
+	}
 
+	async stop(): Promise<void> {
+		return this.server?.stop();
+	}
 }
