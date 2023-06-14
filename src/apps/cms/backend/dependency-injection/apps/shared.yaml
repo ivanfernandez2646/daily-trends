@@ -1,0 +1,15 @@
+services:
+  Shared.MongoConfig:
+    factory:
+      class: ../../../../../contexts/cms/shared/infrastructure/persistence/mongo/MongoConfigFactory
+      method: 'createConfig'
+
+  Shared.MongoClientFactory:
+    factory:
+      class: ../../../../../contexts/cms/shared/infrastructure/persistence/mongo/MongoClientFactory
+      method: 'createClient'
+    arguments: ['daily-trends', '@Shared.MongoConfig']
+
+  Shared.EventBus:
+    class: ../../../../../contexts/cms/shared/infrastructure/eventBus/inMemory/InMemoryAsyncEventBus
+    

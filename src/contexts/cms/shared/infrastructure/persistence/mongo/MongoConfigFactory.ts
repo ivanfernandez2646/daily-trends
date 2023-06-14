@@ -1,4 +1,4 @@
-import configConvict from '../../../../../../api/config/config';
+import configConvict from '../../../../../../apps/cms/backend/config/config';
 import { MongoConfig } from './MongoClientFactory';
 
 export default class MongoConfigFactory {

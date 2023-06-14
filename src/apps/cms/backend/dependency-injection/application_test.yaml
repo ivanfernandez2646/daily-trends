@@ -1,2 +1,8 @@
 imports:
   - { resource: ./application.yaml }
+
+services: 
+
+  Apps.contexts.cms.shared.EnvironmentArranger:
+    class: ../../../../../tests/contexts/cms/shared/infrastructure/persistence/mongo/MongoEnvironmentArranger
+    arguments: ['@Shared.MongoClientFactory']

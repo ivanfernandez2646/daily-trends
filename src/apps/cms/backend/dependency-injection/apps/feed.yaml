@@ -1,0 +1,4 @@
+services:
+  Apps.contexts.cms.feeds.FeedRepository:
+    class: ../../../../../contexts/cms/feeds/infrastructure/persistence/mongo/MongoFeedRepository
+    arguments: ['@Shared.MongoClientFactory']

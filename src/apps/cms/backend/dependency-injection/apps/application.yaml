@@ -1,3 +1,7 @@
+imports: 
+  - { resource: ./shared.yaml }
+  - { resource: ./feed.yaml }
+
 services:
 
   Apps.cms.controllers.StatusGetController:

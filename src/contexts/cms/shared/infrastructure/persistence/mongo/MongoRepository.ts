@@ -36,4 +36,10 @@ export abstract class MongoRepository<T extends AggregateRoot> {
 
     return fromPrimitives({ ...records[0], id: records[0]._id });
   }
+
+  protected async remove(id: string): Promise<void> {
+    const collection = await this.collection();
+
+    await collection.deleteOne({ _id: id as unknown as ObjectId });
+  }
 }
