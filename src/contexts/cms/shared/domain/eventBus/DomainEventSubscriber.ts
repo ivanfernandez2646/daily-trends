@@ -1,7 +1,8 @@
 import DomainEvent, { DomainEventClass } from './DomainEvent';
 
 export default interface DomainEventSubscriber<T extends DomainEvent> {
-	subscribedTo(): DomainEventClass[];
+  subscribedTo(): DomainEventClass[];
 
-	on(domainEvent: T): Promise<void>;
+  on(domainEvent: T): Promise<void>;
+  // eslint-disable-next-line semi
 }

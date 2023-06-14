@@ -1,4 +1,4 @@
-.PHONY = default deps build test start-cms-backend clean start-database
+.PHONY = default deps build test clean start-database
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
@@ -18,8 +18,14 @@ ifndef DOCKER_COMPOSE
 	@exit 1
 endif
 
-default: build
+# Clean container
+clean:
+	docker-compose down --rmi local --volumes
 
-# Build image
-build:
-	docker build -t $(IMAGE_NAME):dev .
+# Start database container in background
+start_database:
+	docker-compose up -d mongo
+
+# Start
+start: deps start_database
+	npm run dev

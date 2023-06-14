@@ -1,22 +1,21 @@
 module.exports = {
-  extends: ['eslint-config-codely/typescript'],
-  rules: {
-    'no-console': 'warn'
+  parser: '@typescript-eslint/parser',
+  extends: ['plugin:@typescript-eslint/recommended'],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module'
   },
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      parserOptions: {
-        project: ['./tsconfig.json']
-      },
-      rules: {
-        '@typescript-eslint/no-floating-promises': 'warn',
-        '@typescript-eslint/no-unsafe-member-access': 'warn',
-        '@typescript-eslint/no-unsafe-call': 'warn',
-        '@typescript-eslint/no-unsafe-assignment': 'warn',
-        '@typescript-eslint/no-unsafe-argument': 'warn',
-        '@typescript-eslint/no-unsafe-return': 'warn'
+  rules: {
+    semi: ['error', 'always'],
+    quotes: ['error', 'single'],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 1,
+    '@typescript-eslint/no-inferrable-types': [
+      'warn',
+      {
+        ignoreParameters: true
       }
-    }
-  ]
+    ],
+    '@typescript-eslint/no-unused-vars': 'warn'
+  }
 };

@@ -1,5 +1,14 @@
 module.exports = {
-	preset: 'ts-jest',
-	testEnvironment: 'node',
-	cacheDirectory: '.tmp/jestCache'
+  moduleFileExtensions: ['ts', 'js'],
+  transform: {
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.json'
+      }
+    ]
+  },
+  testMatch: ['**/tests/**/*.test.(ts|js)'],
+  testEnvironment: 'node',
+  testPathIgnorePatterns: ['<rootDir>/(.*)/persistence/(.*)']
 };
