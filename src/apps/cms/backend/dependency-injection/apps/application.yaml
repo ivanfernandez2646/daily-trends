@@ -1,0 +1,5 @@
+services:
+
+  Apps.cms.controllers.StatusGetController:
+    class: ../../controllers/StatusGetController
+    arguments: []
