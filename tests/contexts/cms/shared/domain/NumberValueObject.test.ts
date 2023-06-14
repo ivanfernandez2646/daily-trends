@@ -1,4 +1,4 @@
-import NumberValueObject from '../../../../src/contexts/cms/shared/domain/NumberValueObject';
+import NumberValueObject from '../../../../../src/contexts/cms/shared/domain/NumberValueObject';
 import MotherCreator from './MotherCreator';
 
 class DummyNumberValueObject extends NumberValueObject {}

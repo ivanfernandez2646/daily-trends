@@ -25,6 +25,10 @@ export default class MotherCreator {
 		return faker.lorem.word();
 	}
 
+	static firstName(): string {
+		return faker.person.firstName();
+	}
+
 	static randomBoolean(): boolean {
 		return faker.datatype.boolean();
 	}

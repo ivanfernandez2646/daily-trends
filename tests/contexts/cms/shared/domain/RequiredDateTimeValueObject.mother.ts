@@ -1,4 +1,4 @@
-import RequiredDateTimeValueObject from '../../../../src/contexts/cms/shared/domain/RequiredDateTimeValueObject';
+import RequiredDateTimeValueObject from '../../../../../src/contexts/cms/shared/domain/RequiredDateTimeValueObject';
 import MotherCreator from './MotherCreator';
 
 export default class RequiredDateTimeValueObjectMother {

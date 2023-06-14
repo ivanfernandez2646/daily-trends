@@ -1,8 +1,8 @@
 import { randomBytes } from 'crypto';
 
-import DomainEvent from '../../../../../../src/contexts/cms/shared/domain/eventBus/DomainEvent';
-import DomainEventSubscriber from '../../../../../../src/contexts/cms/shared/domain/eventBus/DomainEventSubscriber';
-import InMemoryAsyncEventBus from '../../../../../../src/contexts/cms/shared/infrastructure/eventBus/inMemory/InMemoryAsyncEventBus';
+import DomainEvent from '../../../../../../../src/contexts/cms/shared/domain/eventBus/DomainEvent';
+import DomainEventSubscriber from '../../../../../../../src/contexts/cms/shared/domain/eventBus/DomainEventSubscriber';
+import InMemoryAsyncEventBus from '../../../../../../../src/contexts/cms/shared/infrastructure/eventBus/inMemory/InMemoryAsyncEventBus';
 
 class DummyEvent extends DomainEvent {
 	static EVENT_NAME = 'dummy:event';
@@ -29,7 +29,7 @@ class DomainEventSubscriberDummy implements DomainEventSubscriber<DummyEvent> {
 	}
 }
 
-describe('inMemoryAsyncEventBus', () => {
+describe('InMemoryAsyncEventBus', () => {
 	let subscriber: DomainEventSubscriberDummy;
 	let eventBus: InMemoryAsyncEventBus;
 

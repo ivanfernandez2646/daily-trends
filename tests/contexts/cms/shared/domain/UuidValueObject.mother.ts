@@ -1,4 +1,4 @@
-import UuidValueObject from '../../../../src/contexts/cms/shared/domain/UuidValueObject';
+import UuidValueObject from '../../../../../src/contexts/cms/shared/domain/UuidValueObject';
 import MotherCreator from './MotherCreator';
 
 export default class UuidValueObjectMother {

@@ -1,5 +1,5 @@
-import { Nullable } from '../../../../src/contexts/cms/shared/domain/Nullable';
-import StringValueObject from '../../../../src/contexts/cms/shared/domain/StringValueObject';
+import { Nullable } from '../../../../../src/contexts/cms/shared/domain/Nullable';
+import StringValueObject from '../../../../../src/contexts/cms/shared/domain/StringValueObject';
 import MotherCreator from './MotherCreator';
 
 class DummyStringValueObject extends StringValueObject {}
