@@ -2,9 +2,8 @@
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
-IMAGE_NAME := codelytv/typescript-ddd-skeleton
+IMAGE_NAME := daily-trends
 SERVICE_NAME := app
-MOOC_APP_NAME := cms
 
 # Test if the dependencies we need to run this Makefile are installed
 DOCKER := $(shell command -v docker)
