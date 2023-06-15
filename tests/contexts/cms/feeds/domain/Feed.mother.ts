@@ -13,35 +13,32 @@ import FeedIdMother from './FeedId.mother';
 import FeedTitleMother from './FeedTitle.mother';
 
 export default class FeedMother {
-	static create(params: {
-		id: FeedId;
-		title: FeedTitle;
-		description: FeedDescription;
-		author: FeedAuthor;
-		createdAt: RequiredDateTimeValueObject;
-		updatedAt: DateTimeValueObject;
-	}): Feed {
-		return new Feed(params);
-	}
+  static create(params: {
+    id: FeedId;
+    title: FeedTitle;
+    description: FeedDescription;
+    author: FeedAuthor;
+    createdAt: RequiredDateTimeValueObject;
+    updatedAt: DateTimeValueObject;
+  }): Feed {
+    return new Feed(params);
+  }
 
-	static random(overwrites?: {
-		id?: FeedId;
-		title?: FeedTitle;
-		description?: FeedDescription;
-		author?: FeedAuthor;
-		createdAt?: RequiredDateTimeValueObject;
-		updatedAt?: DateTimeValueObject;
-	}): Feed {
-		const id = overwrites?.id ?? FeedIdMother.random(),
-			title = overwrites?.title ?? FeedTitleMother.random(),
-			description =
-				overwrites?.description !== undefined
-					? overwrites.description
-					: FeedDescriptionMother.random(),
-			author = overwrites?.author ?? FeedAuthorMother.random(),
-			createdAt = overwrites?.createdAt ?? RequiredDateTimeValueObjectMother.random(),
-			updatedAt = overwrites?.updatedAt ?? DateTimeValueObjectMother.random();
+  static random(overwrites?: {
+    id?: FeedId;
+    title?: FeedTitle;
+    description?: FeedDescription;
+    author?: FeedAuthor;
+    createdAt?: RequiredDateTimeValueObject;
+    updatedAt?: DateTimeValueObject;
+  }): Feed {
+    const id = overwrites?.id ?? FeedIdMother.random(),
+      title = overwrites?.title ?? FeedTitleMother.random(),
+      description = overwrites?.description !== undefined ? overwrites.description : FeedDescriptionMother.random(),
+      author = overwrites?.author ?? FeedAuthorMother.random(),
+      createdAt = overwrites?.createdAt ?? RequiredDateTimeValueObjectMother.random(),
+      updatedAt = overwrites?.updatedAt ?? DateTimeValueObjectMother.random();
 
-		return FeedMother.create({ id, title, description, author, createdAt, updatedAt });
-	}
+    return FeedMother.create({ id, title, description, author, createdAt, updatedAt });
+  }
 }
