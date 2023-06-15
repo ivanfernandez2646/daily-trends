@@ -11,7 +11,15 @@ services:
     class: ../../../../../contexts/cms/feeds/application/create/FeedCreator
     arguments: ['@Apps.cms.contexts.feeds.FeedRepository', '@Apps.cms.contexts.feeds.FeedFinderDomainService', '@Shared.EventBus']
   
+  Apps.cms.contexts.feeds.FeedFinder:
+    class: ../../../../../contexts/cms/feeds/application/find/FeedFinder
+    arguments: ['@Apps.cms.contexts.feeds.FeedFinderDomainService']
+  
   Apps.cms.controllers.feeds.FeedCreatorController:
     class: ../../../../../apps/cms/backend/controllers/feeds/FeedCreatorController
     arguments: ['@Apps.cms.contexts.feeds.FeedCreator']
+  
+  Apps.cms.controllers.feeds.FeedFinderController:
+    class: ../../../../../apps/cms/backend/controllers/feeds/FeedFinderController
+    arguments: ['@Apps.cms.contexts.feeds.FeedFinder']
 

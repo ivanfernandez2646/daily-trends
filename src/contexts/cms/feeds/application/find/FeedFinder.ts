@@ -1,4 +1,3 @@
-import { Nullable } from '../../../shared/domain/Nullable';
 import Feed from '../../domain/Feed';
 import FeedFinderDomainService from '../../domain/FeedFinderDomainService';
 import FeedId from '../../domain/FeedId';
@@ -10,7 +9,7 @@ export default class FeedFinder {
     this.finder = finder;
   }
 
-  async execute(id: FeedId): Promise<Nullable<Feed>> {
+  async execute(id: FeedId): Promise<Feed> {
     return this.finder.execute(id);
   }
 }
