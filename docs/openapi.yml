@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  title: Daily trends Backend Iván
+  description: |-
+    Daily Trends Backend Test API DDD by Iván Fernández Campos
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local environment.
+tags:
+  - name: feed
+    description: Everything about your Feeds
+paths:
+  /feed/{id}:
+    put:
+      tags:
+        - feed
+      summary: Add a new feed to the system
+      description: Add a new feed to the system
+      operationId: addFeed
+      parameters:
+        - name: id
+          in: path
+          description: The feed id that needs to be added
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Create a new feed in the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedCreatorProps'
+        required: true
+      responses:
+        '201':
+          description: Created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        '302':
+          description: Feed already exists
+        '400':
+          description: Invalid argument error
+    get:
+      tags:
+        - feed
+      summary: Find a feed
+      description: Find a feed from the shop.
+      operationId: findFeed
+      parameters:
+        - name: id
+          in: path
+          description: The feed id that needs to be found
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        '400':
+          description: Invalid argument error
+        '404':
+          description: Feed not found
+    delete:
+      tags:
+        - feed
+      summary: Delete a feed
+      description: Delete a feed from the system.
+      operationId: deleteFeed
+      parameters:
+        - name: id
+          in: path
+          description: The feed id that needs to be deleted
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid argument error
+        '404':
+          description: Feed not found
+    patch:
+      tags:
+        - feed
+      summary: Update an existing Feed
+      description: Update an existing Feed by Id
+      operationId: updateFeed
+      parameters:
+        - name: id
+          in: path
+          description: The feed id that needs to be updated
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update an existent Feed in the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedUpdaterProps'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        '400':
+          description: Invalid argument error
+        '404':
+          description: Feed not found
+
+components:
+  schemas:
+    Feed:
+      required:
+        - id
+        - title
+        - author
+        - createdAt
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 407bb261-d89a-4720-9794-7113635e9a1b
+        title:
+          type: string
+          example: theFeed
+        description:
+          type: string
+          example: theFeedDescription
+        author:
+          type: string
+          example: theFeedAuthor
+        createdAt:
+          type: string
+          format: date
+        modifiedAt:
+          type: string
+          format: date
+    FeedCreatorProps:
+      type: object
+      required:
+        - title
+        - author
+      properties:
+        title:
+          type: string
+          example: theFeed
+        description:
+          type: string
+          example: theFeedDescription
+        author:
+          type: string
+          example: theFeedAuthor
+    FeedUpdaterProps:
+      type: object
+      properties:
+        title:
+          type: string
+          example: theFeed
+        description:
+          type: string
+          example: theFeedDescription

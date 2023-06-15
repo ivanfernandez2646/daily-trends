@@ -8,6 +8,7 @@ import * as http from 'http';
 import httpStatus from 'http-status';
 
 import { registerRoutes } from './routes';
+import { registerSwagger } from './openapi';
 
 export class Server {
   private readonly express: express.Express;
@@ -29,6 +30,8 @@ export class Server {
     this.express.use(router);
 
     registerRoutes(router);
+
+    registerSwagger(router);
 
     router.use((err: Error, req: Request, res: Response, _next: () => void) => {
       console.log(err);
