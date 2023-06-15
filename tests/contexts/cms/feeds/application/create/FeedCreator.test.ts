@@ -1,6 +1,7 @@
 import FeedCreator, { FeedCreatorProps } from '../../../../../../src/contexts/cms/feeds/application/create/FeedCreator';
 import Feed from '../../../../../../src/contexts/cms/feeds/domain/Feed';
 import FeedAlreadyExists from '../../../../../../src/contexts/cms/feeds/domain/FeedAlreadyExists';
+import FeedFinderDomainService from '../../../../../../src/contexts/cms/feeds/domain/FeedFinderDomainService';
 import EventBusMock from '../../../shared/__mocks__/EventBus.mock';
 import DateTimeValueObjectMother from '../../../shared/domain/DateTimeValueObject.mother';
 import RequiredDateTimeValueObjectMother from '../../../shared/domain/RequiredDateTimeValueObject.mother';
@@ -12,7 +13,8 @@ describe('FeedCreator', () => {
   it('should throw a FeedAlreadyExists exception when the feed already exists', async () => {
     const repository = new FeedRepositoryMock(),
       eventBus = new EventBusMock(),
-      creator = new FeedCreator(repository, eventBus),
+      finderDomainService = new FeedFinderDomainService(repository),
+      creator = new FeedCreator(repository, finderDomainService, eventBus),
       feed = FeedMother.random(),
       feedCreateProps = toFeedCreatorProps(feed);
 
@@ -24,7 +26,8 @@ describe('FeedCreator', () => {
   it('should create a feed', async () => {
     const repository = new FeedRepositoryMock(),
       eventBus = new EventBusMock(),
-      creator = new FeedCreator(repository, eventBus),
+      finderDomainService = new FeedFinderDomainService(repository),
+      creator = new FeedCreator(repository, finderDomainService, eventBus),
       feed = FeedMother.random({
         createdAt: RequiredDateTimeValueObjectMother.now(),
         updatedAt: DateTimeValueObjectMother.create(null)
@@ -42,7 +45,8 @@ describe('FeedCreator', () => {
   it('should publish a FeedCreatedDomainEvent', async () => {
     const repository = new FeedRepositoryMock(),
       eventBus = new EventBusMock(),
-      creator = new FeedCreator(repository, eventBus),
+      finderDomainService = new FeedFinderDomainService(repository),
+      creator = new FeedCreator(repository, finderDomainService, eventBus),
       feed = FeedMother.random({
         createdAt: RequiredDateTimeValueObjectMother.now(),
         updatedAt: DateTimeValueObjectMother.create(null)

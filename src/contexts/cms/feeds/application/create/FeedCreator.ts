@@ -3,7 +3,9 @@ import Feed, { FeedPrimitives } from '../../domain/Feed';
 import FeedAlreadyExists from '../../domain/FeedAlreadyExists';
 import FeedAuthor from '../../domain/FeedAuthor';
 import FeedDescription from '../../domain/FeedDescription';
+import FeedFinderDomainService from '../../domain/FeedFinderDomainService';
 import FeedId from '../../domain/FeedId';
+import FeedNotFound from '../../domain/FeedNotFound';
 import FeedRepository from '../../domain/FeedRepository';
 import FeedTitle from '../../domain/FeedTitle';
 
@@ -12,10 +14,13 @@ export type FeedCreatorProps = Pick<FeedPrimitives, 'id' | 'title' | 'descriptio
 export default class FeedCreator {
   private readonly repository: FeedRepository;
 
+  private readonly finderDomainService: FeedFinderDomainService;
+
   private readonly eventBus: EventBus;
 
-  constructor(repository: FeedRepository, eventBus: EventBus) {
+  constructor(repository: FeedRepository, finder: FeedFinderDomainService, eventBus: EventBus) {
     this.repository = repository;
+    this.finderDomainService = finder;
     this.eventBus = eventBus;
   }
 
@@ -36,10 +41,15 @@ export default class FeedCreator {
   }
 
   private async ensureFeedDoesntExist(id: FeedId): Promise<void> {
-    const feed = await this.repository.find(id);
+    try {
+      await this.finderDomainService.execute(id);
+      throw new FeedAlreadyExists(id);
+    } catch (e) {
+      if (e instanceof FeedNotFound) {
+        return;
+      }
 
-    if (feed) {
-      throw new FeedAlreadyExists(feed.id);
+      throw e;
     }
   }
 }
