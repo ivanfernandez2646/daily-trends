@@ -24,7 +24,7 @@ Feature: Update feed
     When I send a PATCH request to "/feed/b55334d0-7fe1-4350-9bd2-7a69b15eeca1" with body:
       """
       {
-        "title": "Update Feed"
+        "title": "Updated Feed Title Title"
       }
       """
     Then The response status code should be 200
