@@ -3,22 +3,24 @@ import DomainEvent from './eventBus/DomainEvent';
 type AggregateRootPrimitives = any;
 
 export default abstract class AggregateRoot {
-	// eslint-disable-next-line no-use-before-define
-	static fromPrimitives: (plainData: AggregateRootPrimitives) => AggregateRoot;
+  // eslint-disable-next-line no-use-before-define
+  static fromPrimitives: (plainData: AggregateRootPrimitives) => AggregateRoot;
 
-	protected readonly domainEvents: DomainEvent[];
+  static equalsTo: (other: AggregateRoot) => boolean;
 
-	constructor() {
-		this.domainEvents = [];
-	}
+  protected readonly domainEvents: DomainEvent[];
 
-	abstract toPrimitives(): AggregateRootPrimitives;
+  constructor() {
+    this.domainEvents = [];
+  }
 
-	record(domainEvent: DomainEvent): void {
-		this.domainEvents.push(domainEvent);
-	}
+  abstract toPrimitives(): AggregateRootPrimitives;
 
-	pullDomainEvents(): DomainEvent[] {
-		return this.domainEvents.splice(0);
-	}
+  record(domainEvent: DomainEvent): void {
+    this.domainEvents.push(domainEvent);
+  }
+
+  pullDomainEvents(): DomainEvent[] {
+    return this.domainEvents.splice(0);
+  }
 }

@@ -28,7 +28,7 @@ export default class Feed extends AggregateRoot {
 
   readonly createdAt: RequiredDateTimeValueObject;
 
-  readonly updatedAt: DateTimeValueObject;
+  private _updatedAt: DateTimeValueObject;
 
   constructor({
     id,
@@ -52,11 +52,11 @@ export default class Feed extends AggregateRoot {
     this.description = description;
     this.author = author;
     this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this._updatedAt = updatedAt;
   }
 
-  delete(): void {
-    // TODO: in a future register domain event (feed.deleted)
+  public get updatedAt(): DateTimeValueObject {
+    return this._updatedAt;
   }
 
   static create({
@@ -95,6 +95,39 @@ export default class Feed extends AggregateRoot {
       createdAt: new RequiredDateTimeValueObject(createdAt),
       updatedAt: new DateTimeValueObject(updatedAt)
     });
+  }
+
+  delete(): void {
+    // TODO: in a future register domain event (feed.deleted)
+  }
+
+  update(props: { title?: FeedTitle; description?: FeedDescription }): Nullable<Feed> {
+    const updatedFeed = new Feed({
+      ...this,
+      title: props.title !== undefined ? props.title : this.title,
+      description: props.description !== undefined ? props.description : this.description,
+      updatedAt: this.updatedAt
+    });
+
+    if (this.equalsTo(updatedFeed)) {
+      return null;
+    }
+
+    updatedFeed._updatedAt = DateTimeValueObject.now();
+    // TODO: in a future register domain event (feed.updated)
+
+    return updatedFeed;
+  }
+
+  equalsTo(other: Feed): boolean {
+    return (
+      this.id.equalsTo(other.id) &&
+      this.title.equalsTo(other.title) &&
+      this.description.equalsTo(other.description) &&
+      this.author.equalsTo(other.author) &&
+      this.createdAt.equalsTo(other.createdAt) &&
+      this.updatedAt.equalsTo(other.updatedAt)
+    );
   }
 
   toPrimitives(): FeedPrimitives {
