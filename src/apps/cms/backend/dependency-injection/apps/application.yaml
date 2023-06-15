@@ -4,6 +4,6 @@ imports:
 
 services:
 
-  Apps.cms.controllers.StatusGetController:
-    class: ../../controllers/StatusGetController
+  Apps.cms.controllers.status.StatusGetController:
+    class: ../../controllers/status/StatusGetController
     arguments: []

@@ -1,4 +1,17 @@
 services:
-  Apps.contexts.cms.feeds.FeedRepository:
+  Apps.cms.contexts.feeds.FeedRepository:
     class: ../../../../../contexts/cms/feeds/infrastructure/persistence/mongo/MongoFeedRepository
     arguments: ['@Shared.MongoClientFactory']
+
+  Apps.cms.contexts.feeds.FeedFinderDomainService:
+    class: ../../../../../contexts/cms/feeds/domain/FeedFinderDomainService
+    arguments: ['@Apps.cms.contexts.feeds.FeedRepository']
+
+  Apps.cms.contexts.feeds.FeedCreator:
+    class: ../../../../../contexts/cms/feeds/application/create/FeedCreator
+    arguments: ['@Apps.cms.contexts.feeds.FeedRepository', '@Apps.cms.contexts.feeds.FeedFinderDomainService', '@Shared.EventBus']
+  
+  Apps.cms.controllers.feeds.FeedCreatorController:
+    class: ../../../../../apps/cms/backend/controllers/feeds/FeedCreatorController
+    arguments: ['@Apps.cms.contexts.feeds.FeedCreator']
+

@@ -1,4 +1,4 @@
-import Feed from '../../../../../src/contexts/cms/feeds/domain/Feed';
+import Feed, { FeedPrimitives } from '../../../../../src/contexts/cms/feeds/domain/Feed';
 import FeedAuthor from '../../../../../src/contexts/cms/feeds/domain/FeedAuthor';
 import FeedDescription from '../../../../../src/contexts/cms/feeds/domain/FeedDescription';
 import FeedId from '../../../../../src/contexts/cms/feeds/domain/FeedId';
@@ -40,5 +40,9 @@ export default class FeedMother {
       updatedAt = overwrites?.updatedAt ?? DateTimeValueObjectMother.random();
 
     return FeedMother.create({ id, title, description, author, createdAt, updatedAt });
+  }
+
+  static fromPrimitives(plainData: FeedPrimitives): Feed {
+    return Feed.fromPrimitives(plainData);
   }
 }

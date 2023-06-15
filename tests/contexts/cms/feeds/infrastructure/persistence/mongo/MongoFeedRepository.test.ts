@@ -4,7 +4,7 @@ import EnvironmentArranger from '../../../../shared/infrastructure/arranger/Envi
 import FeedMother from '../../../domain/Feed.mother';
 import FeedIdMother from '../../../domain/FeedId.mother';
 
-const repository: MongoFeedRepository = container.get('Apps.contexts.cms.feeds.FeedRepository'),
+const repository: MongoFeedRepository = container.get('Apps.cms.contexts.feeds.FeedRepository'),
   environmentArrager: Promise<EnvironmentArranger> = container.get('Apps.contexts.cms.shared.EnvironmentArranger');
 
 describe('MongoFeedRepository', () => {
