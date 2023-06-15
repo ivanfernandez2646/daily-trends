@@ -30,7 +30,7 @@ export default class FeedRepositoryMock implements FeedRepository {
     expect(expectedBody).toStrictEqual(lastSavedFeedBody);
   }
 
-  assertNothingUpdate(): void {
+  assertNothingSave(): void {
     expect(this.mockSave).not.toHaveBeenCalled();
   }
 
@@ -52,5 +52,9 @@ export default class FeedRepositoryMock implements FeedRepository {
 
   assertDeleteHasBeenCalledWith(feed: Feed): void {
     expect(this.mockDelete).toHaveBeenLastCalledWith(feed);
+  }
+
+  assertNothingDelete(): void {
+    expect(this.mockDelete).not.toHaveBeenCalled();
   }
 }

@@ -21,6 +21,8 @@ describe('FeedCreator', () => {
     repository.whenFindThenReturn(feed);
 
     await expect(creator.execute(feedCreateProps)).rejects.toThrow(FeedAlreadyExists);
+
+    repository.assertNothingSave();
   });
 
   it('should create a feed', async () => {
