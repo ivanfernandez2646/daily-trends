@@ -4,6 +4,7 @@ import FeedCreator, { FeedCreatorProps } from '../../../../../contexts/cms/feeds
 import { Nullable } from '../../../../../contexts/cms/shared/domain/Nullable';
 import httpStatus from 'http-status';
 import FeedAlreadyExists from '../../../../../contexts/cms/feeds/domain/FeedAlreadyExists';
+import InvalidArgumentError from '../../../../../contexts/cms/shared/domain/InvalidArgumentError';
 
 export default class FeedCreatorController extends Controller {
   private readonly handler: FeedCreator;
@@ -15,7 +16,10 @@ export default class FeedCreatorController extends Controller {
   }
 
   protected exceptions(): CustomException[] {
-    return [{ statusCode: httpStatus.FOUND, clazz: FeedAlreadyExists }];
+    return [
+      { statusCode: httpStatus.FOUND, clazz: FeedAlreadyExists },
+      { statusCode: httpStatus.BAD_REQUEST, clazz: InvalidArgumentError }
+    ];
   }
 
   async _run(req: Request, res: Response): Promise<void> {

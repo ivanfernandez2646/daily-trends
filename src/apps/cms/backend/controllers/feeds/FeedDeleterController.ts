@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import FeedFinder from '../../../../../contexts/cms/feeds/application/find/FeedFinder';
-import Controller, { CustomException } from '../Controller';
-import FeedNotFound from '../../../../../contexts/cms/feeds/domain/FeedNotFound';
+import FeedDeleter from '../../../../../contexts/cms/feeds/application/delete/FeedDeleter';
 import FeedId from '../../../../../contexts/cms/feeds/domain/FeedId';
+import FeedNotFound from '../../../../../contexts/cms/feeds/domain/FeedNotFound';
+import Controller, { CustomException } from '../Controller';
 import InvalidArgumentError from '../../../../../contexts/cms/shared/domain/InvalidArgumentError';
 
-export default class FeedFinderController extends Controller {
-  private readonly handler: FeedFinder;
+export default class FeedDeleterController extends Controller {
+  private readonly handler: FeedDeleter;
 
-  constructor(handler: FeedFinder) {
+  constructor(handler: FeedDeleter) {
     super();
 
     this.handler = handler;
@@ -23,9 +23,10 @@ export default class FeedFinderController extends Controller {
   }
 
   async _run(req: Request, res: Response): Promise<void> {
-    const { id } = req.params,
-      feed = await this.handler.execute(new FeedId(id));
+    const { id } = req.params;
 
-    res.status(httpStatus.OK).json(feed.toPrimitives());
+    await this.handler.execute(new FeedId(id));
+
+    res.status(httpStatus.OK).send();
   }
 }
