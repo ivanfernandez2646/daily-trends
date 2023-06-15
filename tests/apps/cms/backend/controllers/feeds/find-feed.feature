@@ -4,7 +4,7 @@ Feature: Find feed
 
   Scenario: When a feed exists
     Given There are feeds:
-      | id                                   | title          | description                 | author |
+      | id                                   | title          | description                  | author |
       | de32eacb-1ce8-408f-b07b-8c3b0e0437c0 | Test Feed Find | Description - Test Feed Find | Ivan   |
     When I send a GET request to "/feed/de32eacb-1ce8-408f-b07b-8c3b0e0437c0"
     Then The response status code should be 200

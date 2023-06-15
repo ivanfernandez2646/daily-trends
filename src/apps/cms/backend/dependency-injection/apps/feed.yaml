@@ -18,6 +18,10 @@ services:
   Apps.cms.contexts.feeds.FeedDeleter:
     class: ../../../../../contexts/cms/feeds/application/delete/FeedDeleter
     arguments: ['@Apps.cms.contexts.feeds.FeedRepository', '@Apps.cms.contexts.feeds.FeedFinderDomainService']
+
+  Apps.cms.contexts.feeds.FeedUpdater:
+    class: ../../../../../contexts/cms/feeds/application/update/FeedUpdater
+    arguments: ['@Apps.cms.contexts.feeds.FeedRepository', '@Apps.cms.contexts.feeds.FeedFinderDomainService']
   
   Apps.cms.controllers.feeds.FeedCreatorController:
     class: ../../../../../apps/cms/backend/controllers/feeds/FeedCreatorController
@@ -30,4 +34,8 @@ services:
   Apps.cms.controllers.feeds.FeedDeleterController:
     class: ../../../../../apps/cms/backend/controllers/feeds/FeedDeleterController
     arguments: ['@Apps.cms.contexts.feeds.FeedDeleter']
+
+  Apps.cms.controllers.feeds.FeedUpdaterController:
+    class: ../../../../../apps/cms/backend/controllers/feeds/FeedUpdaterController
+    arguments: ['@Apps.cms.contexts.feeds.FeedUpdater']
 

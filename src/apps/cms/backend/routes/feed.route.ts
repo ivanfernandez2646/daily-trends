@@ -4,6 +4,7 @@ import container from '../dependency-injection';
 import FeedCreatorController from '../controllers/feeds/FeedCreatorController';
 import FeedFinderController from '../controllers/feeds/FeedFinderController';
 import FeedDeleterController from '../controllers/feeds/FeedDeleterController';
+import FeedUpdaterController from '../controllers/feeds/FeedUpdaterController';
 
 export const register = (router: Router): void => {
   const feedCreatorController: FeedCreatorController = container.get(
@@ -18,4 +19,9 @@ export const register = (router: Router): void => {
     'Apps.cms.controllers.feeds.FeedDeleterController'
   );
   router.delete('/feed/:id', (req: Request, res: Response): Promise<void> => feedDeleterController.run(req, res));
+
+  const feedUpdaterController: FeedUpdaterController = container.get(
+    'Apps.cms.controllers.feeds.FeedUpdaterController'
+  );
+  router.patch('/feed/:id', (req: Request, res: Response): Promise<void> => feedUpdaterController.run(req, res));
 };
