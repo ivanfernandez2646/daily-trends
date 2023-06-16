@@ -122,6 +122,16 @@ paths:
           description: Invalid argument error
         '404':
           description: Feed not found
+  /feed/scrap:
+    get:
+      tags: 
+        - feed
+      summary: Scrap feeds
+      description: Scrap feeds from external services.
+      operationId: scrapFeed
+      responses:
+        '200':
+          description: Successful operation
 
 components:
   schemas:
@@ -130,6 +140,7 @@ components:
         - id
         - title
         - author
+        - source
         - createdAt
       type: object
       properties:
@@ -146,6 +157,14 @@ components:
         author:
           type: string
           example: theFeedAuthor
+        source:
+          type: string
+          description: Status of the payment.
+          enum:
+            - CMS
+            - EL_PAIS
+            - EL_MUNDO
+          example: CMS
         createdAt:
           type: string
           format: date
