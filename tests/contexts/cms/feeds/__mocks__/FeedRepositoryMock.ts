@@ -2,6 +2,7 @@ import Feed, { FeedPrimitives } from '../../../../../src/contexts/cms/feeds/doma
 import FeedId from '../../../../../src/contexts/cms/feeds/domain/FeedId';
 import FeedRepository from '../../../../../src/contexts/cms/feeds/domain/FeedRepository';
 import { Nullable } from '../../../../../src/contexts/cms/shared/domain/Nullable';
+import FeedMother from '../domain/Feed.mother';
 
 export default class FeedRepositoryMock implements FeedRepository {
   private mockSave = jest.fn();
@@ -30,6 +31,19 @@ export default class FeedRepositoryMock implements FeedRepository {
     expect(expectedBody).toStrictEqual(lastSavedFeedBody);
   }
 
+  assertSaveHasBeenCalledWithDifferentId(feed: Feed) {
+    const { mock } = this.mockSave,
+      lastSavedFeed = mock.calls[mock.calls.length - 1][0] as Feed;
+
+    expect(lastSavedFeed.id.value).not.toBe(feed.id.value);
+
+    this.assertSaveHasBeenCalledWith(FeedMother.fromPrimitives({ ...feed.toPrimitives(), id: lastSavedFeed.id.value }));
+  }
+
+  assertSaveHasBeenCalledTimes(times: number) {
+    expect(this.mockSave).toHaveBeenCalledTimes(times);
+  }
+
   assertNothingSave(): void {
     expect(this.mockSave).not.toHaveBeenCalled();
   }
@@ -40,6 +54,10 @@ export default class FeedRepositoryMock implements FeedRepository {
 
   whenFindThenReturn(feed: Nullable<Feed>): void {
     this.mockFind.mockReturnValue(feed);
+  }
+
+  whenFindThenReturnOnce(feed: Nullable<Feed>): void {
+    this.mockFind.mockReturnValueOnce(feed);
   }
 
   assertFindHasBeenCalledWith(id: FeedId): void {

@@ -8,7 +8,7 @@ export default class FeedScraperDomainService {
     this.feedScrapers = feedScrapers;
   }
 
-  async run(): Promise<Feed[]> {
+  async execute(): Promise<Feed[]> {
     const newFeedsPromises = this.feedScrapers.map(feedScraper => feedScraper.scrap()),
       newFeeds = (await Promise.all(newFeedsPromises)).flat();
 

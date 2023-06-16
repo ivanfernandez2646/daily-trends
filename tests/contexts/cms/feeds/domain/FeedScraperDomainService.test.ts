@@ -24,7 +24,7 @@ describe('FeedScraperDomainService', () => {
       spy1 = jest.spyOn(DummyFeedScraper.prototype, 'scrap'),
       spy2 = jest.spyOn(DummyFeedScraper1.prototype, 'scrap');
 
-    await feedScraperDomainService.run();
+    await feedScraperDomainService.execute();
 
     expect(spy1).toBeCalledTimes(1);
     expect(spy2).toBeCalledTimes(1);
@@ -35,7 +35,7 @@ describe('FeedScraperDomainService', () => {
 
     const feedScrapers = [new DummyFeedScraper(), new DummyFeedScraper1()],
       feedScraperDomainService = new FeedScraperDomainService(...feedScrapers),
-      result = await feedScraperDomainService.run();
+      result = await feedScraperDomainService.execute();
 
     expect(result.length).toBe(3);
   });
