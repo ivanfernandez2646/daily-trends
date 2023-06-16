@@ -5,8 +5,14 @@ import FeedCreatorController from '../controllers/feeds/FeedCreatorController';
 import FeedFinderController from '../controllers/feeds/FeedFinderController';
 import FeedDeleterController from '../controllers/feeds/FeedDeleterController';
 import FeedUpdaterController from '../controllers/feeds/FeedUpdaterController';
+import FeedScraperController from '../controllers/feeds/FeedScraperController';
 
 export const register = (router: Router): void => {
+  const feedScraperController: FeedScraperController = container.get(
+    'Apps.cms.controllers.feeds.FeedScraperController'
+  );
+  router.get('/feed/scrap', (req: Request, res: Response): Promise<void> => feedScraperController.run(req, res));
+
   const feedCreatorController: FeedCreatorController = container.get(
     'Apps.cms.controllers.feeds.FeedCreatorController'
   );
