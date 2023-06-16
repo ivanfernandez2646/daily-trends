@@ -6,6 +6,7 @@ import FeedId from '../../domain/FeedId';
 import FeedTitle from '../../domain/FeedTitle';
 import FeedDescription from '../../domain/FeedDescription';
 import FeedAuthor from '../../domain/FeedAuthor';
+import FeedSource from '../../domain/FeedSource';
 
 export default class ElPaisFeedScraper implements FeedScrap {
   async scrap(): Promise<Feed[]> {
@@ -37,7 +38,8 @@ export default class ElPaisFeedScraper implements FeedScrap {
             id: FeedId.random(),
             title: new FeedTitle(txtTitle),
             description: new FeedDescription(txtDescription ?? null),
-            author: new FeedAuthor(txtAuthor)
+            author: new FeedAuthor(txtAuthor),
+            source: FeedSource.EL_PAIS
           })
         );
 

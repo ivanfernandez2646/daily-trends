@@ -2,6 +2,7 @@ import Feed, { FeedPrimitives } from '../../../../../src/contexts/cms/feeds/doma
 import FeedAuthor from '../../../../../src/contexts/cms/feeds/domain/FeedAuthor';
 import FeedDescription from '../../../../../src/contexts/cms/feeds/domain/FeedDescription';
 import FeedId from '../../../../../src/contexts/cms/feeds/domain/FeedId';
+import FeedSource from '../../../../../src/contexts/cms/feeds/domain/FeedSource';
 import FeedTitle from '../../../../../src/contexts/cms/feeds/domain/FeedTitle';
 import DateTimeValueObject from '../../../../../src/contexts/cms/shared/domain/DateTimeValueObject';
 import RequiredDateTimeValueObject from '../../../../../src/contexts/cms/shared/domain/RequiredDateTimeValueObject';
@@ -10,6 +11,7 @@ import RequiredDateTimeValueObjectMother from '../../shared/domain/RequiredDateT
 import FeedAuthorMother from './FeedAuthor.mother';
 import FeedDescriptionMother from './FeedDescription.mother';
 import FeedIdMother from './FeedId.mother';
+import FeedSourceMother from './FeedSource.mother';
 import FeedTitleMother from './FeedTitle.mother';
 
 export default class FeedMother {
@@ -18,6 +20,7 @@ export default class FeedMother {
     title: FeedTitle;
     description: FeedDescription;
     author: FeedAuthor;
+    source: FeedSource;
     createdAt: RequiredDateTimeValueObject;
     updatedAt: DateTimeValueObject;
   }): Feed {
@@ -29,6 +32,7 @@ export default class FeedMother {
     title?: FeedTitle;
     description?: FeedDescription;
     author?: FeedAuthor;
+    source?: FeedSource;
     createdAt?: RequiredDateTimeValueObject;
     updatedAt?: DateTimeValueObject;
   }): Feed {
@@ -36,10 +40,11 @@ export default class FeedMother {
       title = overwrites?.title ?? FeedTitleMother.random(),
       description = overwrites?.description !== undefined ? overwrites.description : FeedDescriptionMother.random(),
       author = overwrites?.author ?? FeedAuthorMother.random(),
+      source = overwrites?.source ?? FeedSourceMother.random(),
       createdAt = overwrites?.createdAt ?? RequiredDateTimeValueObjectMother.random(),
       updatedAt = overwrites?.updatedAt ?? DateTimeValueObjectMother.random();
 
-    return FeedMother.create({ id, title, description, author, createdAt, updatedAt });
+    return FeedMother.create({ id, title, description, author, source, createdAt, updatedAt });
   }
 
   static fromPrimitives(plainData: FeedPrimitives): Feed {

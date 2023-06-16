@@ -67,7 +67,8 @@ describe('FeedCreator', () => {
       id: feed.id.value,
       title: feed.title.value,
       description: feed.description.value,
-      author: feed.author.value
+      author: feed.author.value,
+      source: feed.source
     };
   }
 });

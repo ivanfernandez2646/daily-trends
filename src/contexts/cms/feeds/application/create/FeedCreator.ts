@@ -9,7 +9,7 @@ import FeedNotFound from '../../domain/FeedNotFound';
 import FeedRepository from '../../domain/FeedRepository';
 import FeedTitle from '../../domain/FeedTitle';
 
-export type FeedCreatorProps = Pick<FeedPrimitives, 'id' | 'title' | 'description' | 'author'>;
+export type FeedCreatorProps = Pick<FeedPrimitives, 'id' | 'title' | 'description' | 'author' | 'source'>;
 
 export default class FeedCreator {
   private readonly repository: FeedRepository;
@@ -32,7 +32,7 @@ export default class FeedCreator {
 
     await this.ensureFeedDoesntExist(id);
 
-    const feed = Feed.create({ id, title, description, author });
+    const feed = Feed.create({ id, title, description, author, source: props.source });
 
     await this.repository.save(feed);
     await this.eventBus.publish(feed.pullDomainEvents());
