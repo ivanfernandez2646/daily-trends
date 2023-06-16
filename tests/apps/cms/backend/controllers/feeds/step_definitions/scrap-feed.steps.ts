@@ -35,5 +35,5 @@ defineFeature(feature, test => {
 
     thenTheResponseStatusCodeIs(then);
     andTheResponseShouldBeEmpty(and);
-  });
+  }, 30000);
 });

@@ -19,8 +19,8 @@ Feature: Update feed
 
   Scenario: When a feed exists
     Given There are feeds:
-      | id                                   | title          | description                  | author |
-      | b55334d0-7fe1-4350-9bd2-7a69b15eeca1 | Test Feed Find | Description - Test Feed Find | Ivan   |
+      | id                                   | title          | description                  | author | source |
+      | b55334d0-7fe1-4350-9bd2-7a69b15eeca1 | Test Feed Find | Description - Test Feed Find | Ivan   | CMS    |
     When I send a PATCH request to "/feed/b55334d0-7fe1-4350-9bd2-7a69b15eeca1" with body:
       """
       {
@@ -34,6 +34,7 @@ Feature: Update feed
         "id": "b55334d0-7fe1-4350-9bd2-7a69b15eeca1",
         "title": "Updated Feed Title Title",
         "description": "Description - Test Feed Find",
-        "author": "Ivan"
+        "author": "Ivan",
+        "source": "CMS"
       }
       """

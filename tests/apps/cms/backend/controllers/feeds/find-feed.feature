@@ -4,8 +4,8 @@ Feature: Find feed
 
   Scenario: When a feed exists
     Given There are feeds:
-      | id                                   | title          | description                  | author |
-      | de32eacb-1ce8-408f-b07b-8c3b0e0437c0 | Test Feed Find | Description - Test Feed Find | Ivan   |
+      | id                                   | title          | description                  | author | source |
+      | de32eacb-1ce8-408f-b07b-8c3b0e0437c0 | Test Feed Find | Description - Test Feed Find | Ivan   | CMS    |
     When I send a GET request to "/feed/de32eacb-1ce8-408f-b07b-8c3b0e0437c0"
     Then The response status code should be 200
     And The response should contains:
@@ -14,7 +14,8 @@ Feature: Find feed
         "id": "de32eacb-1ce8-408f-b07b-8c3b0e0437c0",
         "title": "Test Feed Find",
         "description": "Description - Test Feed Find",
-        "author": "Ivan"
+        "author": "Ivan",
+        "source": "CMS"
       }
       """
 

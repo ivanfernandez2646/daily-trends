@@ -18,15 +18,16 @@ Feature: Create feed
         "id": "04deff28-6c34-4634-a7c8-a4a09dabd87a",
         "title": "Example Title",
         "description": "Example Description",
-        "author": "Ivan"
+        "author": "Ivan",
+        "source": "CMS"
       }
       """
 
 
   Scenario: When a feed exists
     Given There are feeds:
-    | id                                   | title           | description           | author |
-    | 749dbded-bae2-43ac-9537-0d71bddb6f9a | Example Title 1 | Example Description 2 | Ivan   |
+    | id                                   | title           | description           | author | source |
+    | 749dbded-bae2-43ac-9537-0d71bddb6f9a | Example Title 1 | Example Description 2 | Ivan   | CMS    |
     When I send a PUT request to "/feed/749dbded-bae2-43ac-9537-0d71bddb6f9a" with body:
       """
       {
