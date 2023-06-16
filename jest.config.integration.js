@@ -3,6 +3,6 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
   },
-  testMatch: ['**/tests/**/persistence/**/*.test.(ts|js)'],
+  testMatch: ['**/tests/**/infrastructure/**/*.test.(ts|js)'],
   testEnvironment: 'node'
 };
