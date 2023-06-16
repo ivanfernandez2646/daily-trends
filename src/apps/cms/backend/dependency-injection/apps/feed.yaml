@@ -36,6 +36,10 @@ services:
   Apps.cms.contexts.feeds.FeedScraper:
     class: ../../../../../contexts/cms/feeds/application/scrap/FeedScraper
     arguments: ['@Apps.cms.contexts.feeds.FeedRepository', '@Apps.cms.contexts.feeds.FeedScraperDomainService', '@Apps.cms.contexts.feeds.FeedFinderDomainService']
+
+  Apps.cms.contexts.feeds.FeedSearcher:
+    class: ../../../../../contexts/cms/feeds/application/search/FeedSearcher
+    arguments: ['@Apps.cms.contexts.feeds.FeedRepository']
   
   Apps.cms.controllers.feeds.FeedCreatorController:
     class: ../../../../../apps/cms/backend/controllers/feeds/FeedCreatorController
@@ -56,4 +60,12 @@ services:
   Apps.cms.controllers.feeds.FeedScraperController:
     class: ../../../../../apps/cms/backend/controllers/feeds/FeedScraperController
     arguments: ['@Apps.cms.contexts.feeds.FeedScraper']
+
+  Apps.cms.controllers.feeds.FeedHomeController:
+    class: ../../../../../apps/cms/backend/controllers/feeds/FeedHomeController
+    arguments: ['@Apps.cms.contexts.feeds.FeedSearcher']
+
+  Apps.cms.controllers.feeds.FeedListController:
+    class: ../../../../../apps/cms/backend/controllers/feeds/FeedListController
+    arguments: ['@Apps.cms.contexts.feeds.FeedSearcher']
 

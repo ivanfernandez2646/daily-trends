@@ -4,12 +4,13 @@ import container from '../../../config';
 import {
   whenISendAGetRequest,
   thenTheResponseStatusCodeIs,
-  andTheResponseShouldBeEmpty
+  andTheResponseShouldContains,
+  andTheResponseShouldBe
 } from '../../../shared/Controller';
 import givenThereAreFeeds from '../../../shared/FeedRepository';
 import EnvironmentArranger from '../../../../../../contexts/cms/shared/infrastructure/arranger/EnvironmentArranger';
 
-const feature = loadFeature('tests/apps/cms/backend/controllers/feeds/scrap-feed.feature'),
+const feature = loadFeature('tests/apps/cms/backend/controllers/feeds/home-feed.feature'),
   environmentArrager: Promise<EnvironmentArranger> = container.get('Apps.contexts.cms.shared.EnvironmentArranger');
 
 defineFeature(feature, test => {
@@ -29,12 +30,19 @@ defineFeature(feature, test => {
     await (await environmentArrager).close();
   });
 
-  test('When i scrap from different sources', ({ given, when, then, and }) => {
+  test('When a feed from external services exists', ({ given, when, then, and }) => {
     givenThereAreFeeds(given);
 
     whenISendAGetRequest(when);
 
     thenTheResponseStatusCodeIs(then);
-    andTheResponseShouldBeEmpty(and);
-  }, 30000);
+    andTheResponseShouldContains(and);
+  });
+
+  test('When a feed from external services does not exist', ({ when, then, and }) => {
+    whenISendAGetRequest(when);
+
+    thenTheResponseStatusCodeIs(then);
+    andTheResponseShouldBe(and);
+  });
 });
