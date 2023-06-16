@@ -24,9 +24,11 @@ export default class ElMundoFeedScraper implements FeedScrap {
       const feeds: Feed[] = [];
 
       for (const element of document.querySelectorAll('article')) {
-        const txtAuthor = element.querySelector('.ue-c-cover-content__byline-name')?.textContent?.trim(),
+        const txtAuthor = element
+            .querySelector('.ue-c-cover-content__byline-name .ue-c-cover-content__link')
+            ?.textContent?.trim(),
           txtTitle = element.querySelector('.ue-c-cover-content__headline')?.textContent?.trim(),
-          txtDescription = element.querySelector('.ue-c-cover-content__kicker')?.textContent?.trim();
+          txtDescription = element.querySelector('.ue-c-cover-content__kicker')?.textContent?.trim().slice(0, -1); // slice to remove "." char from El Mundo (make clean appearance)
 
         if (!txtAuthor || !txtTitle) {
           continue;
