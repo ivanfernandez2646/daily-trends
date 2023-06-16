@@ -132,6 +132,26 @@ paths:
       responses:
         '200':
           description: Successful operation
+  /feed/home:
+    get:
+      tags: 
+        - feed
+      summary: Get 10 home feed from external providers (ONLY EXTERNAL FEEDS)
+      description: Get 10 last feeds.
+      operationId: homeFeeds
+      responses:
+        '200':
+          description: Successful operation
+  /feed/list:
+    get:
+      tags: 
+        - feed
+      summary: Get all feed list (IN A FUTURE, APPLY CRITERIA IMPLEMENTATION AND PAGINATION TO BE SENT FROM FRONT)
+      description: Get all feeds.
+      operationId: allFeeds
+      responses:
+        '200':
+          description: Successful operation
 
 components:
   schemas:
