@@ -11,5 +11,5 @@ describe('ElPaisFeedScraper', () => {
     expect(result.length).toBe(5);
     expect(result).toBeInstanceOf(Array);
     result.map(feed => expect(feed).toBeInstanceOf(Feed));
-  });
+  }, 20000);
 });
