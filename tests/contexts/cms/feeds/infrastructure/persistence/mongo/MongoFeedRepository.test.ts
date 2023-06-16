@@ -1,3 +1,4 @@
+import FeedSource from '../../../../../../../src/contexts/cms/feeds/domain/FeedSource';
 import MongoFeedRepository from '../../../../../../../src/contexts/cms/feeds/infrastructure/persistence/mongo/MongoFeedRepository';
 import container from '../../../../../../apps/cms/backend/config';
 import EnvironmentArranger from '../../../../shared/infrastructure/arranger/EnvironmentArranger';
@@ -58,6 +59,71 @@ describe('MongoFeedRepository', () => {
       await repository.delete(feed);
 
       await expect(repository.find(feed.id)).resolves.toBeNull();
+    });
+  });
+
+  describe('search', () => {
+    it('should filter feeds by filter criteria', async () => {
+      const feeds = [
+        FeedMother.random({ source: FeedSource.CMS }),
+        FeedMother.random({ source: FeedSource.EL_MUNDO }),
+        FeedMother.random({ source: FeedSource.EL_PAIS }),
+        FeedMother.random({ source: FeedSource.CMS }),
+        FeedMother.random({ source: FeedSource.CMS })
+      ];
+
+      await Promise.all(feeds.map(feed => repository.save(feed)));
+
+      const res = await repository.search({
+        filter: [{ source: FeedSource.CMS }]
+      });
+
+      expect(res.length).toBe(3);
+    });
+
+    it('should sort feeds by sort criteria', async () => {
+      const feeds = [
+        FeedMother.random({ source: FeedSource.CMS }),
+        FeedMother.random({ source: FeedSource.EL_MUNDO }),
+        FeedMother.random({ source: FeedSource.EL_PAIS }),
+        FeedMother.random({ source: FeedSource.CMS }),
+        FeedMother.random({ source: FeedSource.CMS })
+      ];
+
+      await Promise.all(feeds.map(feed => repository.save(feed)));
+
+      const res = await repository.search({
+        filter: [{ source: FeedSource.CMS }],
+        sort: { createdAt: 'desc' }
+      });
+
+      expect(res.length).toBe(3);
+      expect(res).toMatchObject(
+        [...res].sort((feed1, feed2) => feed2.createdAt.toSeconds() - feed1.createdAt.toSeconds())
+      );
+    });
+
+    it('should limit feeds by limit criteria', async () => {
+      const feeds = [
+        FeedMother.random({ source: FeedSource.CMS }),
+        FeedMother.random({ source: FeedSource.EL_MUNDO }),
+        FeedMother.random({ source: FeedSource.EL_PAIS }),
+        FeedMother.random({ source: FeedSource.CMS }),
+        FeedMother.random({ source: FeedSource.CMS })
+      ];
+
+      await Promise.all(feeds.map(feed => repository.save(feed)));
+
+      const res = await repository.search({
+        filter: [{ source: FeedSource.CMS }],
+        sort: { createdAt: 'desc' },
+        limit: 2
+      });
+
+      expect(res.length).toBe(2);
+      expect(res).toMatchObject(
+        [...res].sort((feed1, feed2) => feed2.createdAt.toSeconds() - feed1.createdAt.toSeconds())
+      );
     });
   });
 });

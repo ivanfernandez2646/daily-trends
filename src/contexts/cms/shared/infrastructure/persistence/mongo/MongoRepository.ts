@@ -1,5 +1,6 @@
 import { Collection, MongoClient, ObjectId } from 'mongodb';
 import AggregateRoot from '../../../domain/AggregateRoot';
+import { Criteria } from '../../../domain/Criteria';
 
 export abstract class MongoRepository<T extends AggregateRoot> {
   constructor(private _client: Promise<MongoClient>) {}
@@ -41,5 +42,20 @@ export abstract class MongoRepository<T extends AggregateRoot> {
     const collection = await this.collection();
 
     await collection.deleteOne({ _id: id as unknown as ObjectId });
+  }
+
+  protected async byCriteria(criteria: Criteria<any>, fromPrimitives: (plainData: any) => T): Promise<T[]> {
+    const collection = await this.collection(),
+      records = await collection
+        .find(this.parseCriteria(criteria))
+        .sort((criteria?.sort as any) ?? {})
+        .limit(criteria.limit ?? 0)
+        .toArray();
+
+    return records.map(r => fromPrimitives({ ...r, id: r._id }));
+  }
+
+  private parseCriteria(criteria: Criteria<any>) {
+    return { $or: criteria.filter };
   }
 }

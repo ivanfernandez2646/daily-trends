@@ -1,6 +1,7 @@
 import Feed, { FeedPrimitives } from '../../../../../src/contexts/cms/feeds/domain/Feed';
 import FeedId from '../../../../../src/contexts/cms/feeds/domain/FeedId';
 import FeedRepository from '../../../../../src/contexts/cms/feeds/domain/FeedRepository';
+import { Criteria } from '../../../../../src/contexts/cms/shared/domain/Criteria';
 import { Nullable } from '../../../../../src/contexts/cms/shared/domain/Nullable';
 import FeedMother from '../domain/Feed.mother';
 
@@ -10,6 +11,8 @@ export default class FeedRepositoryMock implements FeedRepository {
   private mockFind = jest.fn();
 
   private mockDelete = jest.fn();
+
+  private mockSearch = jest.fn();
 
   async save(Feed: Feed): Promise<void> {
     this.mockSave(Feed);
@@ -74,5 +77,17 @@ export default class FeedRepositoryMock implements FeedRepository {
 
   assertNothingDelete(): void {
     expect(this.mockDelete).not.toHaveBeenCalled();
+  }
+
+  search(criteria?: Criteria<FeedPrimitives> | undefined): Promise<Feed[]> {
+    return this.mockSearch(criteria);
+  }
+
+  whenSearchThenReturn(feeds: Feed[]): void {
+    this.mockSearch.mockReturnValueOnce(feeds);
+  }
+
+  assertSearchHasBeenCalledWith(criteria?: Criteria<FeedPrimitives> | undefined): void {
+    expect(this.mockSearch).toHaveBeenLastCalledWith(criteria);
   }
 }
