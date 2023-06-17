@@ -20,11 +20,11 @@ endif
 
 # Clean container
 clean:
-	docker-compose down --rmi local --volumes
+	docker-compose -f ./docker-compose-test.yml down --rmi local --volumes
 
 # Start database container in background
 start_database:
-	docker-compose up -d mongo
+	docker-compose -f ./docker-compose-test.yml up -d mongo
 
 # Start
 start: deps start_database
