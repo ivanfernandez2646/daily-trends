@@ -4,7 +4,8 @@ import container from '../../../config';
 import {
   whenISendAGetRequest,
   thenTheResponseStatusCodeIs,
-  andTheResponseShouldBeEmpty
+  andTheResponseShouldBeEmpty,
+  andTheResponseIsAnArrayWithLength
 } from '../../../shared/Controller';
 import givenThereAreFeeds from '../../../shared/FeedRepository';
 import EnvironmentArranger from '../../../../../../contexts/cms/shared/infrastructure/arranger/EnvironmentArranger';
@@ -31,10 +32,20 @@ defineFeature(feature, test => {
 
   test('When i scrap from different sources', ({ given, when, then, and }) => {
     givenThereAreFeeds(given);
-
     whenISendAGetRequest(when);
-
+    thenTheResponseStatusCodeIs(then);
+    andTheResponseIsAnArrayWithLength(and);
+    whenISendAGetRequest(when);
+    thenTheResponseStatusCodeIs(then);
+    andTheResponseIsAnArrayWithLength(and);
+    whenISendAGetRequest(when);
     thenTheResponseStatusCodeIs(then);
     andTheResponseShouldBeEmpty(and);
+    whenISendAGetRequest(when);
+    thenTheResponseStatusCodeIs(then);
+    andTheResponseIsAnArrayWithLength(and);
+    whenISendAGetRequest(then);
+    thenTheResponseStatusCodeIs(then);
+    andTheResponseIsAnArrayWithLength(and);
   }, 30000);
 });

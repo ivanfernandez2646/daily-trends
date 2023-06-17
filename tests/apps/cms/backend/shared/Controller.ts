@@ -29,22 +29,27 @@ export const whenISendAGetRequest = (when: DefineStepFunction) => {
     });
   },
   thenTheResponseStatusCodeIs = (then: DefineStepFunction) => {
-    then(/The response status code should be (\d+)/, async (status: string) => {
+    then(/The response status code should be (\d+)/, (status: string) => {
       expect(_response.statusCode).toBe(parseInt(status));
     });
   },
-  andTheResponseShouldBeEmpty = (then: DefineStepFunction) => {
-    then(/The response should be empty/, () => {
+  andTheResponseShouldBeEmpty = (and: DefineStepFunction) => {
+    and(/The response should be empty/, () => {
       expect(_response.body).toStrictEqual({});
     });
   },
-  andTheResponseShouldBe = (then: DefineStepFunction) => {
-    then(/The response should be:/, (body: string) => {
+  andTheResponseShouldBe = (and: DefineStepFunction) => {
+    and(/The response should be:/, (body: string) => {
       expect(_response.body).toStrictEqual(JSON.parse(body));
     });
   },
-  andTheResponseShouldContains = (then: DefineStepFunction) => {
-    then(/The response should contains:/, (body: string) => {
+  andTheResponseShouldContains = (and: DefineStepFunction) => {
+    and(/The response should contains:/, (body: string) => {
       expect(_response.body).toMatchObject(JSON.parse(body));
+    });
+  },
+  andTheResponseIsAnArrayWithLength = (and: DefineStepFunction) => {
+    and(/The response is an array with length (\d+)/, (arrayLength: string) => {
+      expect(_response.body?.length).toBe(parseInt(arrayLength));
     });
   };
