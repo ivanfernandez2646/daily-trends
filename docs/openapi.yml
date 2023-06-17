@@ -5,6 +5,8 @@ info:
     Daily Trends Backend Test API DDD by Iván Fernández Campos
   version: 1.0.0
 servers:
+  - url: https://daily-trends-app-ivan.onrender.com/
+    description: Prod environment.
   - url: http://localhost:5000
     description: Local environment.
 tags:
