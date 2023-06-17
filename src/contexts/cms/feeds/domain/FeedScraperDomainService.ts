@@ -10,10 +10,7 @@ export default class FeedScraperDomainService {
 
   async execute(): Promise<Feed[]> {
     const newFeedsPromises = this.feedScrapers.map(feedScraper => feedScraper.scrap()),
-      newFeeds = (await Promise.allSettled(newFeedsPromises))
-        .filter(({ status }) => status === 'fulfilled')
-        .map(feedPromise => (feedPromise as PromiseFulfilledResult<Feed[]>).value)
-        .flat();
+      newFeeds = (await Promise.all(newFeedsPromises)).flat();
 
     return newFeeds;
   }
