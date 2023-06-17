@@ -12,7 +12,6 @@ import configConvict from '../../../../../apps/cms/backend/config/config';
 export default class ElMundoFeedScraper implements FeedScrap {
   async scrap(): Promise<Feed[]> {
     const browser = await puppeteer.launch({
-        headless: 'new',
         args: ['--disable-setuid-sandbox', '--no-sandbox', '--single-process', '--no-zygote'],
         executablePath:
           configConvict.get('env') === 'production'
