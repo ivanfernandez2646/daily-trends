@@ -45,8 +45,12 @@ export class Server {
 
       this.httpServer = this.express.listen(this.port, () => {
         if (env !== 'test') {
-          console.log(`  App is running at http://localhost:${this.port} in ${env} mode`);
-          console.log('  Press CTRL-C to stop\n');
+          console.log(
+            'App is running at %s:%d in %s mode',
+            env === 'production' ? process.env.RENDER_EXTERNAL_URL : 'http://localhost',
+            this.port.toString(),
+            process.env.NODE_ENV
+          );
         }
 
         resolve();

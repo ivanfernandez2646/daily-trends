@@ -11,14 +11,14 @@
     "npm": ">=9.5.1"
   },
   "scripts": {
-    "dev:cms:backend": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules ./src/apps/cms/backend/start.ts",
+    "dev": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules ./src/apps/cms/backend/start.ts",
     "lint": "eslint --ignore-path .gitignore .",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run test:unit && npm run test:integration && npm run test:features",
     "test:unit": "NODE_ENV=test jest --forceExit --verbose",
     "test:features": "NODE_ENV=test jest --forceExit --verbose --runInBand --config=./jest.config.cucumber.js",
     "test:integration": "NODE_ENV=test jest --forceExit --verbose --runInBand --config=./jest.config.integration.js",
-    "start:cms:backend": "NODE_ENV=production node dist/src/apps/cms/backend/start",
+    "start:prod": "NODE_ENV=production node dist/src/apps/cms/backend/start",
     "build": "npm run build:clean && npm run build:tsc && npm run build:di && npm run build:swagger && npm run lint",
     "build:tsc": "tsc -p tsconfig.prod.json",
     "build:di": "copy 'src/**/*.{json,yaml,html,png}' dist/src",
