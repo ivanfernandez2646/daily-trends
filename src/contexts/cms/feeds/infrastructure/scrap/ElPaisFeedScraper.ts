@@ -10,47 +10,43 @@ import FeedSource from '../../domain/FeedSource';
 
 export default class ElPaisFeedScraper implements FeedScrap {
   async scrap(): Promise<Feed[]> {
-    try {
-      const browser = await puppeteer.launch({ headless: 'new' }),
-        page = await browser.newPage(),
-        response = await page.goto('https://elpais.com/'),
-        body = await response!.text();
+    const browser = await puppeteer.launch({ headless: 'new' }),
+      page = await browser.newPage(),
+      response = await page.goto('https://elpais.com/'),
+      body = await response!.text();
 
-      await browser.close();
+    await browser.close();
 
-      const {
-        window: { document }
-      } = new jsdom.JSDOM(body);
+    const {
+      window: { document }
+    } = new jsdom.JSDOM(body);
 
-      const feeds: Feed[] = [];
+    const feeds: Feed[] = [];
 
-      for (const element of document.querySelectorAll('article')) {
-        const txtAuthor = element.querySelector('.c_a')?.textContent?.trim(),
-          txtTitle = element.querySelector('.c_h')?.textContent?.trim(),
-          txtDescription = element.querySelector('.c_d')?.textContent?.trim();
+    for (const element of document.querySelectorAll('article')) {
+      const txtAuthor = element.querySelector('.c_a')?.textContent?.trim(),
+        txtTitle = element.querySelector('.c_h')?.textContent?.trim(),
+        txtDescription = element.querySelector('.c_d')?.textContent?.trim();
 
-        if (!txtAuthor || !txtTitle) {
-          continue;
-        }
-
-        feeds.push(
-          Feed.create({
-            id: FeedId.random(),
-            title: new FeedTitle(txtTitle),
-            description: new FeedDescription(txtDescription ?? null),
-            author: new FeedAuthor(txtAuthor),
-            source: FeedSource.EL_PAIS
-          })
-        );
-
-        if (feeds.length >= 5) {
-          break;
-        }
+      if (!txtAuthor || !txtTitle) {
+        continue;
       }
 
-      return feeds;
-    } catch (e) {
-      throw e;
+      feeds.push(
+        Feed.create({
+          id: FeedId.random(),
+          title: new FeedTitle(txtTitle),
+          description: new FeedDescription(txtDescription ?? null),
+          author: new FeedAuthor(txtAuthor),
+          source: FeedSource.EL_PAIS
+        })
+      );
+
+      if (feeds.length >= 5) {
+        break;
+      }
     }
+
+    return feeds;
   }
 }

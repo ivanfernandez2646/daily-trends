@@ -10,5 +10,5 @@ module.exports = {
   },
   testMatch: ['**/tests/**/*.test.(ts|js)'],
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['<rootDir>/(.*)/persistence/(.*)']
+  testPathIgnorePatterns: ['<rootDir>/(.*)/infrastructure/(.*)']
 };
