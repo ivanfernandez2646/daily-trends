@@ -29,3 +29,7 @@ start_database:
 # Start
 start: deps start_database
 	npm run dev
+
+# Run tests
+test: deps start_database
+	npm run test
