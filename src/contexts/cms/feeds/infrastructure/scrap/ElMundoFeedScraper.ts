@@ -7,9 +7,7 @@ import FeedTitle from '../../domain/FeedTitle';
 import FeedAuthor from '../../domain/FeedAuthor';
 import FeedDescription from '../../domain/FeedDescription';
 import FeedSource from '../../domain/FeedSource';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import configConvict from '../../../../../apps/cms/backend/config/config';
 
 export default class ElMundoFeedScraper implements FeedScrap {
   async scrap(): Promise<Feed[]> {
@@ -17,10 +15,12 @@ export default class ElMundoFeedScraper implements FeedScrap {
         headless: 'new',
         args: ['--disable-setuid-sandbox', '--no-sandbox', '--single-process', '--no-zygote'],
         executablePath:
-          process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()
+          configConvict.get('env') === 'production'
+            ? configConvict.get('puppeteerExecutablePath')
+            : puppeteer.executablePath()
       }),
       page = await browser.newPage(),
-      response = await page.goto('https://elmundo.es/'),
+      response = await page.goto('https://elmundo.es/', { timeout: 0 }),
       body = await response!.text();
 
     await browser.close();

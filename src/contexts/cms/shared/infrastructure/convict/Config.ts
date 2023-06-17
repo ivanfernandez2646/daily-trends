@@ -1,11 +1,14 @@
 import convict from 'convict';
 import { accessSync } from 'fs';
 import { F_OK } from 'constants';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const config = convict({
     env: {
       doc: 'Environment.',
-      format: ['pro', 'dev', 'test'],
+      format: ['production', 'dev', 'test'],
       env: 'NODE_ENV',
       default: 'dev'
     },
@@ -15,6 +18,11 @@ const config = convict({
         env: 'MONGO_URL',
         default: 'mongodb://localhost:27017/daily-trends'
       }
+    },
+    puppeteerExecutablePath: {
+      doc: 'PuppeteerExecutablePath URL.',
+      env: 'PUPPETEER_EXECUTABLE_PATH',
+      default: ''
     }
   }),
   files: string[] = [];

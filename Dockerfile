@@ -4,7 +4,9 @@ USER root
 
 # Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable \
+    # TODO: move this to .env files (now for time it will be here)
+    MONGO_URL=mongodb+srv://dailyTrendsAdmin:u6N4VZ613MrUJAuT@cluster0.8oczyau.mongodb.net/
 
 # Install Nodejs
 ENV NODE_VERSION=18.16.0
@@ -28,4 +30,4 @@ RUN npm ci
 COPY . .
 
 RUN npm run build
-RUN npm run start:prod
+CMD ["npm", "run", "start:prod"]

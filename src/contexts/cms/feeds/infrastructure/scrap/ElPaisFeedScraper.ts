@@ -7,9 +7,7 @@ import FeedTitle from '../../domain/FeedTitle';
 import FeedDescription from '../../domain/FeedDescription';
 import FeedAuthor from '../../domain/FeedAuthor';
 import FeedSource from '../../domain/FeedSource';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import configConvict from '../../../../../apps/cms/backend/config/config';
 
 export default class ElPaisFeedScraper implements FeedScrap {
   async scrap(): Promise<Feed[]> {
@@ -17,10 +15,12 @@ export default class ElPaisFeedScraper implements FeedScrap {
         headless: 'new',
         args: ['--disable-setuid-sandbox', '--no-sandbox', '--single-process', '--no-zygote'],
         executablePath:
-          process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()
+          configConvict.get('env') === 'production'
+            ? configConvict.get('puppeteerExecutablePath')
+            : puppeteer.executablePath()
       }),
       page = await browser.newPage(),
-      response = await page.goto('https://elpais.com/'),
+      response = await page.goto('https://elpais.com/', { timeout: 0 }),
       body = await response!.text();
 
     await browser.close();
