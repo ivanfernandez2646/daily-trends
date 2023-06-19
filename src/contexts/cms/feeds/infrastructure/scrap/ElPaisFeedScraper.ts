@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer';
 import jsdom from 'jsdom';
 import Feed from '../../domain/Feed';
 import { FeedScrap } from '../../domain/FeedScrap';
@@ -7,28 +6,15 @@ import FeedTitle from '../../domain/FeedTitle';
 import FeedDescription from '../../domain/FeedDescription';
 import FeedAuthor from '../../domain/FeedAuthor';
 import FeedSource from '../../domain/FeedSource';
-import configConvict from '../../../../../apps/cms/backend/config/config';
+import FeedScraperBase from './FeedScraperBase';
 
-export default class ElPaisFeedScraper implements FeedScrap {
+export default class ElPaisFeedScraper extends FeedScraperBase implements FeedScrap {
   async scrap(): Promise<Feed[]> {
-    const browser = await puppeteer.launch({
-        args: ['--disable-setuid-sandbox', '--no-sandbox', '--single-process', '--no-zygote'],
-        executablePath:
-          configConvict.get('env') === 'production'
-            ? configConvict.get('puppeteerExecutablePath')
-            : puppeteer.executablePath()
-      }),
-      page = await browser.newPage(),
-      response = await page.goto('https://elpais.com/', { timeout: 0 }),
-      body = await response!.text();
-
-    await browser.close();
-
-    const {
-      window: { document }
-    } = new jsdom.JSDOM(body);
-
-    const feeds: Feed[] = [];
+    const scrapedResult = await this.getScrapedResults('https://elpais.com/'),
+      {
+        window: { document }
+      } = new jsdom.JSDOM(scrapedResult),
+      feeds: Feed[] = [];
 
     for (const element of document.querySelectorAll('article')) {
       const txtAuthor = element.querySelector('.c_a')?.textContent?.trim(),
