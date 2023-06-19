@@ -53,7 +53,7 @@ $ npm install
 $ make start
 
 # Or
-$ npm run up:mongo # to up Docker with Mongo (docker-compose necessary)
+$ npm run up:docker:local # to up Docker with Mongo (docker-compose necessary)
 $ npm run dev
 ```
 
@@ -64,7 +64,7 @@ $ npm run dev
 $ make test # Run all tests
 
 # Or
-$ npm run up:mongo # follow we can use whatever of the below commands
+$ npm run up:docker:local # follow we can use whatever of the below commands
 
     # all tests
     $ npm run test
@@ -77,12 +77,6 @@ $ npm run up:mongo # follow we can use whatever of the below commands
 
     # integration (infrastructure)
     $ npm run test:integration
-```
-
-## Deploy
-
-```bash
-$ npm run deploy
 ```
 
 ## TODO Improves
