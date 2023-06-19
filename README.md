@@ -3,6 +3,7 @@
 Daily Trends App Iván API (tiny DDD) 😎.
 https://daily-trends-app-ivan.onrender.com
 
+
 <table>
   <tr>
     <td valign="center">
@@ -33,6 +34,10 @@ https://daily-trends-app-ivan.onrender.com
   </tr>
 </table>
 
+## Hexagonal architecture diagram
+
+<img src="./docs/img/hex-architecture-diagram.png" width=500/>
+
 ## Requirements
 
 ```
@@ -56,6 +61,7 @@ $ make start
 $ npm run up:docker:local # to up Docker with Mongo (docker-compose necessary)
 $ npm run dev
 ```
+
 
 ## Test
 
