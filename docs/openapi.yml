@@ -5,7 +5,7 @@ info:
     Daily Trends Backend Test API DDD by Iván Fernández Campos
   version: 1.0.0
 servers:
-  - url: https://daily-trends-app-ivan.onrender.com/
+  - url: https://daily-trends-app-ivan-v2.onrender.com/
     description: Prod environment.
   - url: http://localhost:5000
     description: Local environment.
@@ -126,7 +126,7 @@ paths:
           description: Feed not found
   /feed/scrap:
     get:
-      tags: 
+      tags:
         - feed
       summary: Scrap feeds
       description: Scrap feeds from external services.
@@ -136,7 +136,7 @@ paths:
           description: Successful operation
   /feed/home:
     get:
-      tags: 
+      tags:
         - feed
       summary: Get 10 home feed from external providers (ONLY EXTERNAL FEEDS)
       description: Get 10 last feeds.
@@ -146,7 +146,7 @@ paths:
           description: Successful operation
   /feed/list:
     get:
-      tags: 
+      tags:
         - feed
       summary: Get all feed list (IN A FUTURE, APPLY CRITERIA IMPLEMENTATION AND PAGINATION TO BE SENT FROM FRONT)
       description: Get all feeds.
