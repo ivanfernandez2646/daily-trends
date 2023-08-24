@@ -1,7 +1,7 @@
 ## Description
 
 Daily Trends App Iván API (tiny DDD) 😎.
-https://daily-trends-app-ivan.onrender.com
+https://daily-trends-app-ivan-v2.onrender.com
 
 
 <table>
