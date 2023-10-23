@@ -63,7 +63,7 @@ services:
 
   Apps.cms.controllers.feeds.FeedHomeController:
     class: ../../../../../apps/cms/backend/controllers/feeds/FeedHomeController
-    arguments: ['@Apps.cms.contexts.feeds.FeedSearcher']
+    arguments: ['@Apps.cms.contexts.feeds.FeedSearcher', '@Apps.cms.contexts.feeds.FeedScraper']
 
   Apps.cms.controllers.feeds.FeedListController:
     class: ../../../../../apps/cms/backend/controllers/feeds/FeedListController

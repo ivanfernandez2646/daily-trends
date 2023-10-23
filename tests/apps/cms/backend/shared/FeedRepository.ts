@@ -32,7 +32,10 @@ const givenThereAreFeeds = (given: DefineStepFunction) => {
               ...feed,
               description: feed.description ?? FeedDescriptionMother.random().value,
               source: feed.source ?? FeedSourceMother.random(),
-              createdAt: feed.createdAt ?? RequiredDateTimeValueObjectMother.now().value,
+              createdAt:
+                feed.createdAt === '' || !feed.createdAt
+                  ? RequiredDateTimeValueObjectMother.now().value
+                  : feed.createdAt,
               updatedAt: DateTimeValueObjectMother.random().value
             })
           )

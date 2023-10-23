@@ -1,7 +1,10 @@
 ## Description
 
-Daily Trends App Iván API (tiny DDD) 😎.
-https://daily-trends-app-ivan-v2.onrender.com
+"daily-trends" repository is a web application (backend) created with the aim of centralizing news from the most representative newspapers in the country. It follows a solid architecture based on Domain-Driven Design (DDD) principles with the goal of being scalable efficiently and quickly.
+
+[![Demo](https://img.shields.io/badge/Click-Me)](https://daily-trends-app-ivan-v2.onrender.com) _BACKEND --> Wait 10 seconds until RENDER service is up_
+
+[![FRONT](https://img.shields.io/badge/Click-Me)](https://daily-trends.netlify.app/) _FRONT --> Check it now and you will see lastest news (Now, is needed to wait a little because the scraping process is fired on the fly if any of the news is older than the current day. In a future, it will be fired with an Scheduler but it costs more money in the Cloud Provider)_
 
 
 <table>
